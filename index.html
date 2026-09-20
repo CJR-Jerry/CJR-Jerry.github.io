@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Jiarui Cao</title>
+  <meta
+    name="description"
+    content="Jiarui Cao — AI undergraduate at Southeast University working on multi-agent reinforcement learning."
+  >
+
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231e3a5f'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='30' font-family='Arial' font-weight='700' fill='white'%3EJC%3C/text%3E%3C/svg%3E"
+  >
+
+  <style>
+    :root {
+      --background: #f7f9fc;
+      --surface: #ffffff;
+      --text: #172033;
+      --muted: #5f6b7a;
+      --primary: #1e3a5f;
+      --accent: #2563a6;
+      --border: #dce3ec;
+      --tag: #eaf1f8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1050px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      background: rgba(247, 249, 252, 0.95);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      color: var(--primary);
+      font-size: 1.1rem;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    main {
+      padding-bottom: 50px;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(260px, 0.75fr);
+      align-items: center;
+      gap: 70px;
+      padding: 90px 0 80px;
+    }
+
+    .eyebrow {
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      color: var(--primary);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 7vw, 5.6rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0 0 16px;
+      color: #344054;
+      font-size: 1.2rem;
+      line-height: 1.65;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--primary);
+      font-weight: 650;
+    }
+
+    .button.primary {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+
+    .button:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .focus-card {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: 0 18px 45px rgba(30, 58, 95, 0.08);
+    }
+
+    .focus-card h2 {
+      margin-top: 0;
+      font-size: 1rem;
+    }
+
+    .focus-card ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    section.content-section {
+      padding: 70px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+    }
+
+    .section-intro {
+      max-width: 700px;
+      margin: 0 0 32px;
+      color: var(--muted);
+    }
+
+    .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .interest-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .interest-card h3 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-size: 1.05rem;
+    }
+
+    .interest-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 34px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .project-label {
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .project h3 {
+      margin: 0 0 6px;
+      color: var(--primary);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.55rem;
+    }
+
+    .project-subtitle {
+      margin: 0 0 14px;
+      color: #344054;
+      font-weight: 650;
+    }
+
+    .project-description {
+      margin: 0 0 20px;
+      color: var(--muted);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--tag);
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .education-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 34px;
+    }
+
+    .education-row p {
+      margin: 0;
+    }
+
+    footer {
+      padding: 32px 0 48px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 760px) {
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px 0;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 36px;
+        padding: 65px 0;
+      }
+
+      .interest-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project,
+      .education-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      section.content-section {
+        padding: 55px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a class="brand" href="#about">Jiarui Cao</a>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#work">Selected Work</a>
+        <a href="#education">Education</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="about">
+      <div>
+        <div class="eyebrow">Artificial Intelligence · Southeast University</div>
+
+        <h1>Jiarui Cao</h1>
+
+        <p class="lead">
+          I am an undergraduate student at the School of Artificial
+          Intelligence, Southeast University.
+        </p>
+
+        <p class="lead">
+          My research focuses on multi-agent reinforcement learning,
+          particularly agent communication, partial observability, belief
+          modeling, and adaptive collaboration with unfamiliar teammates.
+        </p>
+
+        <div class="hero-links">
+          <a class="button primary" href="mailto:caojiarui@seu.edu.cn">
+            Email
+          </a>
+          <a class="button" href="https://github.com/CJR-Jerry" target="_blank">
+            GitHub
+          </a>
+          <a
+            class="button"
+            href="https://orcid.org/0009-0005-6337-4696"
+            target="_blank"
+          >
+            ORCID
+          </a>
+        </div>
+      </div>
+
+      <aside class="focus-card">
+        <h2>Current Focus</h2>
+        <ul>
+          <li>Communication-robust MARL</li>
+          <li>Decision-sufficient teammate modeling</li>
+          <li>Adaptive multi-agent collaboration</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="content-section" id="research">
+      <h2 class="section-heading">Research Interests</h2>
+
+      <p class="section-intro">
+        I study how intelligent agents can communicate, reason about missing
+        information, and cooperate robustly in partially observable environments.
+      </p>
+
+      <div class="interest-grid">
+        <article class="interest-card">
+          <h3>Multi-Agent Reinforcement Learning</h3>
+          <p>
+            Cooperative decision-making and coordination among multiple
+            learning agents.
+          </p>
+        </article>
+
+        <article class="interest-card">
+          <h3>Agent Communication</h3>
+          <p>
+            Reliable information exchange under limited visibility and
+            communication loss.
+          </p>
+        </article>
+
+        <article class="interest-card">
+          <h3>Teammate Modeling</h3>
+          <p>
+            Learning decision-relevant representations of unfamiliar
+            collaborators.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section" id="work">
+      <h2 class="section-heading">Selected Work</h2>
+
+      <p class="section-intro">
+        Selected research projects in cooperative multi-agent intelligence.
+      </p>
+
+      <article class="project">
+        <div class="project-label">Research Project</div>
+
+        <div>
+          <h3>BeliefHub</h3>
+
+          <p class="project-subtitle">
+            Visibility-Aware Belief Reconstruction for
+            Communication-Robust Multi-Agent Reinforcement Learning
+          </p>
+
+          <p class="project-description">
+            BeliefHub investigates recurrent entity-belief reconstruction and
+            reliability-aware information fusion for robust cooperative
+            decision-making under limited visibility and packet loss.
+          </p>
+
+          <div class="tags">
+            <span class="tag">MARL</span>
+            <span class="tag">Partial Observability</span>
+            <span class="tag">Agent Communication</span>
+            <span class="tag">Belief Reconstruction</span>
+          </div>
+
+          <a
+            href="https://github.com/CJR-Jerry/BeliefHub"
+            target="_blank"
+          >
+            View project on GitHub →
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section class="content-section" id="education">
+      <h2 class="section-heading">Education</h2>
+
+      <div class="education-row">
+        <div class="project-label">Undergraduate</div>
+
+        <div>
+          <p><strong>Southeast University</strong></p>
+          <p>School of Artificial Intelligence</p>
+          <p style="color: var(--muted);">Nanjing, China</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Jiarui Cao · Built with HTML and CSS · Hosted on GitHub Pages
+    </div>
+  </footer>
+</body>
+</html>
