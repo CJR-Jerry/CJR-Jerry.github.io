@@ -261,12 +261,49 @@
 
     .project {
       display: grid;
-      grid-template-columns: 150px 1fr;
-      gap: 34px;
+      grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: 36px;
       padding: 32px;
       border: 1px solid var(--border);
       border-radius: 14px;
       background: var(--surface);
+    }
+
+    .project-figure {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+      cursor: zoom-in;
+      box-shadow: 0 12px 30px var(--shadow);
+    }
+
+    .project-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .project-figure:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-figure:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      outline-offset: 3px;
+    }
+
+    .figure-caption {
+      margin: 10px 2px 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.45;
     }
 
     .project-label {
@@ -322,6 +359,43 @@
     .project-description {
       margin: 0 0 20px;
       color: var(--muted);
+    }
+
+    .image-dialog {
+      width: min(94vw, 1500px);
+      max-width: none;
+      padding: 0;
+      border: 0;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .image-dialog::backdrop {
+      background: rgba(5, 12, 22, 0.82);
+      backdrop-filter: blur(4px);
+    }
+
+    .image-dialog img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .dialog-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 999px;
+      background: rgba(14, 22, 36, 0.82);
+      color: #ffffff;
+      font: inherit;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
     }
 
     .tags {
@@ -383,6 +457,14 @@
       .education-row {
         grid-template-columns: 1fr;
         gap: 12px;
+      }
+
+      .project {
+        padding: 20px;
+      }
+
+      .project-visual {
+        margin-bottom: 10px;
       }
 
       section.content-section {
@@ -502,9 +584,27 @@
       </p>
 
       <article class="project">
-        <div class="project-label">Research Project</div>
+        <div class="project-visual">
+          <button
+            class="project-figure"
+            id="architecture-open"
+            type="button"
+            aria-label="View the BeliefHub architecture diagram at full size"
+          >
+            <img
+              src="beliefhub-architecture.png"
+              alt="BeliefHub architecture showing the spatiotemporal information hub, belief-augmented agent, and centralized QMIX value decomposition"
+              loading="lazy"
+            >
+          </button>
+          <p class="figure-caption">
+            BeliefHub architecture. Click the figure to view it at full size.
+          </p>
+        </div>
 
-        <div>
+        <div class="project-content">
+          <div class="project-label">Research Project</div>
+
           <h3>BeliefHub</h3>
 
           <p class="project-subtitle">
@@ -534,6 +634,19 @@
         </div>
       </article>
     </section>
+
+    <dialog class="image-dialog" id="architecture-dialog">
+      <button
+        class="dialog-close"
+        id="architecture-close"
+        type="button"
+        aria-label="Close full-size architecture diagram"
+      >×</button>
+      <img
+        src="beliefhub-architecture.png"
+        alt="Full-size BeliefHub architecture diagram"
+      >
+    </dialog>
 
     <section class="content-section" id="education">
       <h2 class="section-heading">Education</h2>
@@ -577,6 +690,24 @@
       document.documentElement.dataset.theme = nextTheme;
       localStorage.setItem("theme", nextTheme);
       updateThemeButton(nextTheme);
+    });
+
+    const architectureOpen = document.getElementById("architecture-open");
+    const architectureDialog = document.getElementById("architecture-dialog");
+    const architectureClose = document.getElementById("architecture-close");
+
+    architectureOpen.addEventListener("click", () => {
+      architectureDialog.showModal();
+    });
+
+    architectureClose.addEventListener("click", () => {
+      architectureDialog.close();
+    });
+
+    architectureDialog.addEventListener("click", (event) => {
+      if (event.target === architectureDialog) {
+        architectureDialog.close();
+      }
     });
   </script>
 </body>
