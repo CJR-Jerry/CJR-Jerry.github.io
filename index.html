@@ -16,16 +16,46 @@
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231e3a5f'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='30' font-family='Arial' font-weight='700' fill='white'%3EJC%3C/text%3E%3C/svg%3E"
   >
 
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme =
+        savedTheme || (prefersDark ? "dark" : "light");
+    })();
+  </script>
+
   <style>
     :root {
+      color-scheme: light;
       --background: #f7f9fc;
       --surface: #ffffff;
       --text: #172033;
       --muted: #5f6b7a;
-      --primary: #1e3a5f;
+      --primary: #284b73;
       --accent: #2563a6;
       --border: #dce3ec;
       --tag: #eaf1f8;
+      --header: rgba(247, 249, 252, 0.95);
+      --button-bg: #284b73;
+      --button-text: #ffffff;
+      --shadow: rgba(30, 58, 95, 0.08);
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --background: #0e1624;
+      --surface: #162132;
+      --text: #e6edf7;
+      --muted: #a5b1c2;
+      --primary: #d9e8fb;
+      --accent: #78b7ff;
+      --border: #2a394d;
+      --tag: #21364f;
+      --header: rgba(14, 22, 36, 0.95);
+      --button-bg: #377dc0;
+      --button-text: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.28);
     }
 
     * {
@@ -45,6 +75,7 @@
         Helvetica, Arial, sans-serif;
       font-size: 16px;
       line-height: 1.7;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     a {
@@ -62,7 +93,7 @@
     }
 
     header {
-      background: rgba(247, 249, 252, 0.95);
+      background: var(--header);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -88,6 +119,7 @@
     .nav-links {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 24px;
     }
 
@@ -123,7 +155,7 @@
       margin: 0 0 20px;
       color: var(--primary);
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-size: clamp(2.35rem, 4vw, 3.5rem);
       line-height: 1.05;
       letter-spacing: -0.035em;
     }
@@ -131,7 +163,7 @@
     .lead {
       max-width: 720px;
       margin: 0 0 16px;
-      color: #344054;
+      color: var(--text);
       font-size: 1.2rem;
       line-height: 1.65;
     }
@@ -155,9 +187,9 @@
     }
 
     .button.primary {
-      border-color: var(--primary);
-      background: var(--primary);
-      color: white;
+      border-color: var(--button-bg);
+      background: var(--button-bg);
+      color: var(--button-text);
     }
 
     .button:hover {
@@ -170,7 +202,7 @@
       border: 1px solid var(--border);
       border-radius: 14px;
       background: var(--surface);
-      box-shadow: 0 18px 45px rgba(30, 58, 95, 0.08);
+      box-shadow: 0 18px 45px var(--shadow);
     }
 
     .focus-card h2 {
@@ -254,8 +286,37 @@
 
     .project-subtitle {
       margin: 0 0 14px;
-      color: #344054;
+      color: var(--text);
       font-weight: 650;
+    }
+
+    .theme-toggle {
+      min-width: 88px;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 650;
+      cursor: pointer;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      outline-offset: 2px;
     }
 
     .project-description {
@@ -341,6 +402,14 @@
         <a href="#research">Research</a>
         <a href="#work">Selected Work</a>
         <a href="#education">Education</a>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Switch to dark theme"
+        >
+          ◐ Dark
+        </button>
       </div>
     </nav>
   </header>
@@ -486,5 +555,29 @@
       © 2026 Jiarui Cao · Built with HTML and CSS · Hosted on GitHub Pages
     </div>
   </footer>
+
+  <script>
+    const themeButton = document.getElementById("theme-toggle");
+
+    function updateThemeButton(theme) {
+      const isDark = theme === "dark";
+      themeButton.textContent = isDark ? "☀ Light" : "◐ Dark";
+      themeButton.setAttribute(
+        "aria-label",
+        isDark ? "Switch to light theme" : "Switch to dark theme"
+      );
+    }
+
+    updateThemeButton(document.documentElement.dataset.theme);
+
+    themeButton.addEventListener("click", () => {
+      const currentTheme = document.documentElement.dataset.theme;
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+      document.documentElement.dataset.theme = nextTheme;
+      localStorage.setItem("theme", nextTheme);
+      updateThemeButton(nextTheme);
+    });
+  </script>
 </body>
 </html>
