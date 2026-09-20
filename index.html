@@ -198,11 +198,23 @@
     }
 
     .focus-card {
-      padding: 28px;
+      overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 14px;
       background: var(--surface);
       box-shadow: 0 18px 45px var(--shadow);
+    }
+
+    .profile-photo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    .focus-content {
+      padding: 24px 28px 28px;
     }
 
     .focus-card h2 {
@@ -531,13 +543,22 @@
         </div>
       </div>
 
+
       <aside class="focus-card">
-        <h2>Current Focus</h2>
-        <ul>
-          <li>Communication-robust MARL</li>
-          <li>Decision-sufficient teammate modeling</li>
-          <li>Adaptive multi-agent collaboration</li>
-        </ul>
+        <img
+          class="profile-photo"
+          src="profile.jpg"
+          alt="Portrait of Jiarui Cao"
+        >
+
+        <div class="focus-content">
+          <h2>Current Focus</h2>
+          <ul>
+            <li>Communication-robust MARL</li>
+            <li>Decision-sufficient teammate modeling</li>
+            <li>Adaptive multi-agent collaboration</li>
+          </ul>
+        </div>
       </aside>
     </section>
 
